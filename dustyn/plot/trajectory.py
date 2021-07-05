@@ -43,7 +43,7 @@ class Projected3DTrajectoryPlot:
 
         labels = list(axes_names)[:2]
         ax.set(xlabel=r"$%s$" % labels[0], ylabel=r"$%s$" % labels[1], aspect="equal")
-        x1, x2 = [y[:, NAME2COL[v]] for v in labels]
+        x1, x2 = (y[:, NAME2COL[v]] for v in labels)
 
         self.setup_plot(ax, fig, y, x1, x2, normal, **kwargs)
 
