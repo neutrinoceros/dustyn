@@ -80,7 +80,7 @@ class Solver(abc.ABC):
                 )
             if (
                 dt_record is not None
-                and int(((tstop - tstart) // dt_record)) <= 2 * buffer_size
+                and int((tstop - tstart) // dt_record) <= 2 * buffer_size
             ):
                 warnings.warn(
                     "Time resolution is too low to allow useful granulosity in the progressbar."

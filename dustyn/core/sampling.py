@@ -1,4 +1,4 @@
-from typing import Optional, Sequence, Tuple
+from typing import Optional, Sequence
 
 import numpy as np
 from matplotlib.axes import Axes
@@ -23,8 +23,8 @@ class SpaceSampler:
     def get_grid(
         *,
         bounds: np.ndarray,
-        npoints: Tuple[int, int] = (100, 100),
-        spacing: Tuple[str, str] = ("linear", "linear"),
+        npoints: tuple[int, int] = (100, 100),
+        spacing: tuple[str, str] = ("linear", "linear"),
     ) -> np.ndarray:
 
         if len(bounds) != 4:

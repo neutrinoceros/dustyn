@@ -85,7 +85,7 @@ class SphereSlicePlot:
 
         # the x bounds are actually already stored in radian
         # only the xticklabels are written in degrees...
-        int_bounds = np.ceil((np.array(self.ax.get_xlim()) / (np.pi / div))).astype(
+        int_bounds = np.ceil(np.array(self.ax.get_xlim()) / (np.pi / div)).astype(
             "int64"
         )
         ticks_mul = np.arange(int_bounds[0], int_bounds[1])

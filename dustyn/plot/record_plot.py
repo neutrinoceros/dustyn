@@ -149,7 +149,7 @@ class RecordPlot:
     ) -> None:
 
         self.set(xlabel=texify_symbol(x1.label), ylabel=texify_symbol(x2.label))
-        if not any((label in CURVILINEAR_AXES for label in (x1.label, x2.label))):
+        if not any(label in CURVILINEAR_AXES for label in (x1.label, x2.label)):
             self.set(aspect="equal")
 
         if x3 is None:

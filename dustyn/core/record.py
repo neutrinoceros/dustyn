@@ -49,7 +49,7 @@ class Record:
 
     @classmethod
     def load(cls, dirname: PathLike, full=False) -> "Record":
-        with open(Path(dirname, "metadata.json"), "r") as fh:
+        with open(Path(dirname, "metadata.json")) as fh:
             metadata = json.load(fh)
 
         times = np.load(Path(dirname, "times.npy"))

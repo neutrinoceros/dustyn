@@ -1,5 +1,5 @@
 import os
-from typing import Iterable, Tuple, TypeVar, Union
+from typing import Iterable, TypeVar, Union
 
 import numpy as np
 
@@ -8,5 +8,5 @@ PathLike = Union[str, os.PathLike[str]]
 
 T = TypeVar("T")
 
-SingleOrDouble = Union[T, Tuple[T, T]]
+SingleOrDouble = Union[T, tuple[T, T]]
 SingleOrMultiple = Union[T, Iterable[T]]
