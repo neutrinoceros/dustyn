@@ -10,3 +10,6 @@ combine_as_imports = true
 
 [tool.pytest.ini_options]
 addopts = "--mpl"
+
+[tool.mypy]
+python_version = "3.9"
