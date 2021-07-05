@@ -1,4 +1,3 @@
-import cmocean  # noqa F401
 import matplotlib.pyplot as plt
 import numpy as np
 import pytest
@@ -95,7 +94,7 @@ def test_disk_drawning():
         background=medium.get("density", *grid, 0),
         zlabel=r"\rho",
         zscale="log",
-        cmap="cmo.thermal",
+        cmap="inferno",
         levels=50,
         cbar_orientation="horizontal",
     )
@@ -128,7 +127,7 @@ def test_disk_drawning():
         medium=medium,
         background=medium.get("density", rg, np.pi / 2, phig),
         zlabel=r"\rho",
-        cmap="cmo.thermal",
+        cmap="inferno",
         levels=50,
         cbar_orientation="horizontal",
     )
@@ -176,14 +175,21 @@ def test_raw_record_plot(trajectory_record):
 @mpl_compare
 def test_poloidal_record_plot(trajectory_record):
     fig, axes = plt.subplots(ncols=3, figsize=(25, 4))
-    for colors, ax in zip((None, "normal", "time"), axes):
+    for colors, cmap, ax in zip(
+        (None, "normal", "time"), (None, "twilight", "viridis"), axes
+    ):
+        kwargs = {
+            "lw": 4,
+        }
+        if cmap is not None:
+            kwargs["cmap"] = cmap
         RecordPlot(
             trajectory_record,
             ax,
             geometry="cylindrical",
             colors=colors,
             normal="-phi",
-            lw=4,
+            **kwargs,
         )
     fig.suptitle("poloidal trajectory plots")
     return fig
