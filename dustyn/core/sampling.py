@@ -1,6 +1,7 @@
-from typing import Any, Optional, Sequence, Tuple
+from typing import Optional, Sequence, Tuple
 
 import numpy as np
+from matplotlib.axes import Axes
 
 from dustyn._typing import SingleOrDouble
 
@@ -8,6 +9,15 @@ from dustyn._typing import SingleOrDouble
 class SpaceSampler:
 
     """Create a 2D discrete rectilinear grid specified by bounds, geometry and spacing type."""
+
+    _instance = None
+
+    def __new__(cls):
+        # Implement the singleton pattern
+        # Long term, this should be migrated to a global object
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
 
     @staticmethod
     def get_grid(
@@ -39,7 +49,7 @@ class SpaceSampler:
         *,
         bounds: Optional[np.ndarray] = None,
         npoints: SingleOrDouble[int] = 100,
-        ax: Optional[Any] = None,
+        ax: Optional[Axes] = None,
         geometry: str = "cartesian",
         spacing: SingleOrDouble[str] = "linear",
     ) -> np.ndarray:
@@ -64,14 +74,3 @@ class SpaceSampler:
         if isinstance(spacing, str):
             spacing = (spacing, spacing)
         return self.get_grid(bounds=bounds, npoints=npoints, spacing=spacing)
-
-
-if __name__ == "__main__":
-    import matplotlib.pyplot as plt
-
-    sampler = SpaceSampler()
-    grid = sampler(bounds=[-10, 1, 1, 10], npoints=10)
-    data = np.random.randn(*grid[0].shape)
-    fig, ax = plt.subplots()
-    ax.contourf(*grid, data)
-    fig.savefig("/tmp/sampler.jpg")
