@@ -55,6 +55,7 @@ class RecordPlot:
         colors: Optional[Union[np.ndarray, str]] = None,
         cbar: bool = True,
         logscale: bool = False,
+        L0=1.0,
         **kwargs,
     ):
         if ax is None:
@@ -70,6 +71,7 @@ class RecordPlot:
         if self._flip_axes:
             normal = normal[1:]
         self.normal = normal
+        self.L0 = L0
 
         self._setup_transform()
 
@@ -116,6 +118,8 @@ class RecordPlot:
         data = self.states[self.axes_labels.index(axis_name)]
         if axis_name in CURVILINEAR_AXES:
             data %= 2 * np.pi
+        else:
+            data *= self.L0
         return Vector(data, label=axis_name)
 
     def _get_plane_vectors(self) -> tuple[Vector, Vector]:
