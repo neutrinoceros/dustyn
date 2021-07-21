@@ -88,11 +88,11 @@ class SSWMedium(Medium):
         "velocity_phi": "vphi",
     }
 
-    def __init__(self, fname: PathLike):
+    def __init__(self, fname: PathLike, **interp_kwargs):
         self.ds = SSWDataset(fname)
 
         self._lambdas: dict[str, Callable] = {
-            field: interp1d(self.ds["theta"], self.ds[field])
+            field: interp1d(self.ds["theta"], self.ds[field], **interp_kwargs)
             for field in self.ds._fields
         }
 
@@ -137,7 +137,10 @@ class SSWMedium(Medium):
         try:
             rv = self._lambdas[field](theta)
         except ValueError:
-            msg = "Invalid values encountered. "
+            msg = (
+                "Invalid values encountered. "
+                "Consider passing `bounds_error=False` at instance creation. "
+            )
             if (min_eff := theta.min()) < (min_valid := self.ds["theta"].min()):
                 msg += f"Min possible theta is {min_valid} while input has min(theta) = {min_eff} "
             if (max_eff := theta.max()) > (max_valid := self.ds["theta"].max()):
