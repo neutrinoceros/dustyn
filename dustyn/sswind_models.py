@@ -4,6 +4,7 @@ datasets from Lesur 2021, available at https://github.com/glesur/PPDwind
 """
 
 import re
+import warnings
 from functools import cached_property
 from typing import Callable, Optional
 
@@ -136,7 +137,18 @@ class SSWMedium(Medium):
         try:
             rv = self._lambdas[field](theta)
         except ValueError:
-            return np.nan
+            msg = "Invalid values encountered. "
+            if (min_eff := theta.min()) < (min_valid := self.ds["theta"].min()):
+                msg += f"Min possible theta is {min_valid} while input has min(theta) = {min_eff} "
+            if (max_eff := theta.max()) > (max_valid := self.ds["theta"].max()):
+                msg += f"Max possible theta is {max_valid} while input has max(theta) = {max_eff}"
+            warnings.warn(msg)
+            if hasattr(r, "shape"):
+                rv = np.full_like(r, np.nan)
+            else:
+                # assume scalar input
+                rv = np.nan
+
         return r ** self._get_zeta(field) * rv
 
     def _get_zeta(self, field: str) -> float:
