@@ -3,7 +3,10 @@ from typing import Iterable, TypeVar, Union
 
 import numpy as np
 
-FloatLike = Union[float, np.floating, int, np.integer]
+# PEP 484 specify that integers are acceptable where floats are required
+FloatLike = Union[float, np.floating]
+
+# types that are supposed to support pathlib.Path (natively, str and classes implementing the __fspath__ protocol)
 PathLike = Union[str, os.PathLike[str]]
 
 T = TypeVar("T")
