@@ -4,11 +4,10 @@ from typing import Union
 
 import numpy as np
 
-from dustyn._typing import FloatLike
-
 from .algebra import cross_product
 from .evolve import EvolutionModel
 from .transform import spherical2cartesian
+from dustyn._typing import FloatLike
 
 
 class Newton(EvolutionModel, abc.ABC):

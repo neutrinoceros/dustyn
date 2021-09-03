@@ -4,7 +4,9 @@ import pytest
 import requests
 import sympy as sp
 from matplotlib.colors import TwoSlopeNorm
-from sympy.abc import phi, r, theta
+from sympy.abc import phi
+from sympy.abc import r
+from sympy.abc import theta
 
 from dustyn.core.integrate import RK4
 from dustyn.core.medium import AnalyticMedium
@@ -13,7 +15,8 @@ from dustyn.core.sampling import SpaceSampler
 from dustyn.plot.background import SphereSlicePlot
 from dustyn.plot.record_plot import RecordPlot
 from dustyn.plot.trajectory import Projected3DTrajectoryPlot
-from dustyn.sswind_models import SSWDisk, SSWMedium
+from dustyn.sswind_models import SSWDisk
+from dustyn.sswind_models import SSWMedium
 
 mpl_compare = pytest.mark.mpl_image_compare(
     savefig_kwargs={"bbox_inches": "tight", "dpi": 80},

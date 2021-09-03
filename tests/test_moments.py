@@ -1,19 +1,20 @@
-from random import randint, random
+from random import randint
+from random import random
 
 import numpy as np
 import pytest
 from hypothesis import assume  # useful to discard free particles
 from hypothesis import given
 from hypothesis.extra.numpy import arrays
-from hypothesis.strategies import builds, composite, floats
+from hypothesis.strategies import builds
+from hypothesis.strategies import composite
+from hypothesis.strategies import floats
 from scipy.integrate import solve_ivp
 
-from dustyn.core.newton import (
-    NewtonCartesian2D,
-    NewtonCartesian3D,
-    NewtonPolar2D,
-    NewtonSpherical3D,
-)
+from dustyn.core.newton import NewtonCartesian2D
+from dustyn.core.newton import NewtonCartesian3D
+from dustyn.core.newton import NewtonPolar2D
+from dustyn.core.newton import NewtonSpherical3D
 
 # devnotes
 # - I don't see how to parametrize these tests to avoid duplicated code

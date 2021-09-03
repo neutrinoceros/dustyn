@@ -1,7 +1,11 @@
-from typing import Any, Callable, Optional
+from typing import Any
+from typing import Callable
+from typing import Optional
 
 import numpy as np
-from numpy import ScalarType, cos, sin
+from numpy import cos
+from numpy import ScalarType
+from numpy import sin
 
 
 def _get_rotation_matrix(r: ScalarType, theta: ScalarType, phi: ScalarType):

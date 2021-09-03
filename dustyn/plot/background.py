@@ -1,6 +1,7 @@
 import inspect
 import weakref
-from typing import Callable, Optional
+from typing import Callable
+from typing import Optional
 
 import numpy as np
 from more_itertools import always_iterable

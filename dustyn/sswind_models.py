@@ -2,16 +2,17 @@
 This module defines specialized classes to read self similar 1D simulation
 datasets from Lesur 2021, available at https://github.com/glesur/PPDwind
 """
-
 import re
 import warnings
 from functools import cached_property
-from typing import Callable, Optional
+from typing import Callable
+from typing import Optional
 
 import numpy as np
 from scipy.interpolate import interp1d
 
-from dustyn._typing import FloatLike, PathLike
+from dustyn._typing import FloatLike
+from dustyn._typing import PathLike
 from dustyn.core.medium import Medium
 from dustyn.disk import SphericalDisk3D
 

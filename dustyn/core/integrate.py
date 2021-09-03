@@ -3,15 +3,16 @@ import sys
 import warnings
 from datetime import datetime
 from time import ctime
-from typing import Callable, Optional
+from typing import Callable
+from typing import Optional
 
 import numpy as np
 
+from .evolve import EvolutionModel
+from .progress import DummyProgressBar
+from .progress import get_pbar
 from dustyn._typing import FloatLike
 from dustyn.core.record import Record
-
-from .evolve import EvolutionModel
-from .progress import DummyProgressBar, get_pbar
 
 
 class SolverRecord(Record):

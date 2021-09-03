@@ -1,7 +1,8 @@
 import weakref
 from collections import deque
 from dataclasses import dataclass
-from typing import Optional, Union
+from typing import Optional
+from typing import Union
 
 import numpy as np
 from matplotlib import pyplot as plt
