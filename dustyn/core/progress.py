@@ -1,17 +1,16 @@
-from typing import Optional, Sequence
+from typing import Optional
+from typing import Sequence
 
 import numpy as np
-from rich.progress import (
-    BarColumn,
-    Progress,
-    ProgressColumn,
-    SpinnerColumn,
-    Task,
-    Text,
-    TextColumn,
-    TimeElapsedColumn,
-    TimeRemainingColumn,
-)
+from rich.progress import BarColumn
+from rich.progress import Progress
+from rich.progress import ProgressColumn
+from rich.progress import SpinnerColumn
+from rich.progress import Task
+from rich.progress import Text
+from rich.progress import TextColumn
+from rich.progress import TimeElapsedColumn
+from rich.progress import TimeRemainingColumn
 
 from dustyn._typing import FloatLike
 

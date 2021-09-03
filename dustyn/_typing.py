@@ -1,5 +1,7 @@
 import os
-from typing import Iterable, TypeVar, Union
+from typing import Iterable
+from typing import TypeVar
+from typing import Union
 
 import numpy as np
 

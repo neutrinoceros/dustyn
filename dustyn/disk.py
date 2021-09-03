@@ -4,7 +4,8 @@ import numpy as np
 
 from dustyn._typing import FloatLike
 from dustyn.core.medium import Medium
-from dustyn.core.newton import Newton, NewtonSpherical3D
+from dustyn.core.newton import Newton
+from dustyn.core.newton import NewtonSpherical3D
 
 
 class Disk(Newton, abc.ABC):

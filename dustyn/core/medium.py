@@ -1,10 +1,10 @@
 """
 A medium object represents the state of the fluid in which particles evolve.
 """
-
-
 import abc
-from typing import Callable, Mapping, Sequence
+from typing import Callable
+from typing import Mapping
+from typing import Sequence
 
 import numpy as np
 import sympy as sp
