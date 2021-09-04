@@ -62,7 +62,7 @@ class SphereSlicePlot:
             cbar_kwargs["label"] = r"$%s$" % zlabel
         cbar = fig.colorbar(im, ax=ax, **cbar_kwargs)
         if cbar_kwargs["orientation"] == "horizontal":
-            cbar.ax.set_xticklabels(cbar.ax.get_xticklabels(), rotation=45)
+            cbar.ax.tick_params(rotation=45)
             axis = cbar.ax.xaxis
         else:
             axis = cbar.ax.yaxis
