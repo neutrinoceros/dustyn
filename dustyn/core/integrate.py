@@ -106,12 +106,14 @@ class Solver(abc.ABC):
         )
         states_buffer = np.empty((buffer_size, *R0.shape), dtype=R0.dtype)
         times_buffer = np.empty(buffer_size, dtype=R0.dtype)
+        timesteps_buffer = np.empty(buffer_size, dtype=R0.dtype)
 
         buffer_pos = 0
         R = R0.copy()
         t = tstart
 
         times: list[np.ndarray] = [np.array([tstart])]
+        timesteps: list[np.ndarray] = [np.array([0])]
         states: list[np.ndarray] = [np.expand_dims(R0, axis=0)]
         rec_count = 1
         next_trec = dt_record
@@ -144,6 +146,7 @@ class Solver(abc.ABC):
                 t = next_trec
                 states_buffer[buffer_pos] = R
                 times_buffer[buffer_pos] = t
+                timesteps_buffer[buffer_pos] = timestep
                 buffer_pos += 1
                 rec_count += 1
                 if dt_record is not None:
@@ -161,6 +164,7 @@ class Solver(abc.ABC):
                     )
                 states_buffer[buffer_pos] = R
                 times_buffer[buffer_pos] = t
+                timesteps_buffer[buffer_pos] = timestep
                 buffer_pos += 1
                 rec_count += 1
                 if logging:
@@ -177,6 +181,7 @@ class Solver(abc.ABC):
             ):
                 cls._update_from_buffer(states, states_buffer[:buffer_pos])
                 cls._update_from_buffer(times, times_buffer[:buffer_pos])
+                cls._update_from_buffer(timesteps, timesteps_buffer[:buffer_pos])
                 progress.update(completed=t, refresh=True)
                 buffer_pos = 0
 
@@ -189,12 +194,15 @@ class Solver(abc.ABC):
                 metadata["stop_reason"] = "reached minimal timestep"
                 break
 
+        metadata["final_dt"] = timestep
+
         progress.update(completed=tstop, refresh=True)
         progress.stop()
 
         return Record(
             times=np.concatenate(times),
             states=np.concatenate(states),
+            timesteps=np.concatenate(timesteps),
             metadata=metadata,
         )
 
