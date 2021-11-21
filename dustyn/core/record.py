@@ -14,11 +14,14 @@ class Record:
         self,
         times: np.ndarray,
         states: np.ndarray,
+        *,
+        timesteps: Optional[np.ndarray] = None,
         metadata: Optional[dict[str, Any]] = None,
         dirname: Optional[str] = None,
     ):
         self.times = times
         self.states = states
+        self.timesteps = timesteps
         self.metadata = metadata
         self.dirname = dirname
 
@@ -42,10 +45,17 @@ class Record:
             json.dump(self.metadata, fh, indent=2)
             fh.write("\n")
 
-        fields = {"times": self.times, "states": self.states}
+        fields = {
+            "times": self.times,
+            "states": self.states,
+            "timesteps": self.timesteps,
+        }
         if extra is not None:
             fields.update(extra)
         for name, field in fields.items():
+            if field is None:
+                # don't save optional attributes
+                continue
             np.save(dirpath / f"{name}.npy", field)
 
     @classmethod
@@ -54,9 +64,19 @@ class Record:
             metadata = json.load(fh)
 
         times = np.load(Path(dirname, "times.npy"))
+        try:
+            dts = np.load(Path(dirname, "timesteps.npy"))
+        except FileNotFoundError:
+            dts = None
         states = np.load(Path(dirname, "states.npy"))
 
-        rec = cls(times=times, states=states, metadata=metadata, dirname=str(dirname))
+        rec = cls(
+            times=times,
+            states=states,
+            timesteps=dts,
+            metadata=metadata,
+            dirname=str(dirname),
+        )
         if full:
             rec.load_extra()
         return rec
