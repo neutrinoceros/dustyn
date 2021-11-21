@@ -11,8 +11,10 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-        python-version:
-          - 3.9
+        python-version: [
+          '3.9',
+          '3.10',
+        ]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout Source
