@@ -56,6 +56,7 @@ class Solver(abc.ABC):
         buffer_size: int = 1000,
         dt_record: Optional[FloatLike] = None,
         dt_min: FloatLike = 0.0,
+        max_consecutive_strikes: int = 100,
         label: Optional[str] = None,
         logging: bool = False,
     ) -> Record:
@@ -119,6 +120,7 @@ class Solver(abc.ABC):
         next_trec = dt_record
         timestep_phy = CFL * model.get_max_timestep(R)
         it = 0
+        strike_count = 0
         while t < tstop:
             if dt_record is None:
                 timestep_rec = min(timestep_phy, tstop - t)
@@ -190,9 +192,17 @@ class Solver(abc.ABC):
             if nan_timestep:
                 metadata["stop_reason"] = "NaN timestep"
                 break
-            elif timestep < dt_min:
-                metadata["stop_reason"] = "reached minimal timestep"
-                break
+
+            # When th minimal timestep is reached, we don't want to exit
+            # immediately because in some cases, the timestep may vary rapidly
+            # in magnitude and only briefly go bellow the limit.
+            if timestep >= dt_min:
+                strike_count = 0
+            else:
+                strike_count += 1
+                if strike_count > max_consecutive_strikes:
+                    metadata["stop_reason"] = "reached minimal timestep"
+                    break
 
         metadata["final_dt"] = timestep
 
