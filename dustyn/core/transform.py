@@ -64,7 +64,7 @@ def cylindrical2spherical(position: np.ndarray) -> np.ndarray:
     if len(position) != 3:
         position = position.T
     R, phi, z = position
-    return np.array([np.sqrt(R ** 2 + z ** 2), np.arctan2(R, z), phi])
+    return np.array([np.sqrt(R**2 + z**2), np.arctan2(R, z), phi])
 
 
 # this is meant to be imported from outside
