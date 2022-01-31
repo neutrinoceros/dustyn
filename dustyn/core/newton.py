@@ -71,7 +71,7 @@ class NewtonCartesian2D(NewtonCartesian):
             warnings.filterwarnings(
                 "ignore", r"divide by zero encountered in true_divide"
             )
-            return 0.5 * (vx ** 2 + vy ** 2) - self.GM / np.sqrt(r2)
+            return 0.5 * (vx**2 + vy**2) - self.GM / np.sqrt(r2)
 
 
 class NewtonCartesian3D(NewtonCartesian):
@@ -84,7 +84,7 @@ class NewtonCartesian3D(NewtonCartesian):
         vx, vy, vz, x, y, z = R
         phi = np.arctan2(y, x)
 
-        rho = np.sqrt(x ** 2 + y ** 2)  # cylindrical radius
+        rho = np.sqrt(x**2 + y**2)  # cylindrical radius
         theta = np.arctan2(rho, z)
 
         r2 = self.__class__.spherical_radius_squared(R)
@@ -108,7 +108,7 @@ class NewtonCartesian3D(NewtonCartesian):
             warnings.filterwarnings(
                 "ignore", r"divide by zero encountered in true_divide"
             )
-            return 0.5 * (vx ** 2 + vy ** 2 + vz ** 2) - self.GM / np.sqrt(r2)
+            return 0.5 * (vx**2 + vy**2 + vz**2) - self.GM / np.sqrt(r2)
 
 
 class NewtonCurvilinear(Newton, abc.ABC):
@@ -132,9 +132,9 @@ class NewtonPolar2D(NewtonCurvilinear):
         """
         vr, vphi, r, phi = R
 
-        g = -self.GM / r ** 2
+        g = -self.GM / r**2
         return [
-            g + vphi ** 2 / r,
+            g + vphi**2 / r,
             -vr * vphi / r,
             vr,
             vphi / r,
@@ -147,7 +147,7 @@ class NewtonPolar2D(NewtonCurvilinear):
             warnings.filterwarnings(
                 "ignore", r"divide by zero encountered in true_divide"
             )
-            return 0.5 * (vr ** 2 + vphi ** 2) - self.GM / r
+            return 0.5 * (vr**2 + vphi**2) - self.GM / r
 
 
 class NewtonSpherical3D(NewtonCurvilinear):
@@ -160,11 +160,11 @@ class NewtonSpherical3D(NewtonCurvilinear):
         """
         vr, vtheta, vphi, r, theta, phi = R
 
-        g = -self.GM / r ** 2
+        g = -self.GM / r**2
         return np.array(
             [
-                g + (vphi ** 2 + vtheta ** 2) / r,
-                (vphi ** 2 / np.tan(theta) - vr * vtheta) / r,
+                g + (vphi**2 + vtheta**2) / r,
+                (vphi**2 / np.tan(theta) - vr * vtheta) / r,
                 -vphi * (vr + vtheta / np.tan(theta)) / r,
                 vr,
                 vtheta / r,
@@ -179,7 +179,7 @@ class NewtonSpherical3D(NewtonCurvilinear):
             warnings.filterwarnings(
                 "ignore", r"divide by zero encountered in true_divide"
             )
-            return 0.5 * (vr ** 2 + vphi ** 2 + vtheta ** 2) - self.GM / r
+            return 0.5 * (vr**2 + vphi**2 + vtheta**2) - self.GM / r
 
     def angular_momentum(self, R: np.ndarray) -> np.ndarray:
         """Compute the CARTESIAN components of the angular momentum."""

@@ -64,13 +64,13 @@ def test_disk_drawning():
 
     # define the medium
     z_expr = r * sp.cos(theta)
-    H_expr = 0.1 * r ** 1.25
+    H_expr = 0.1 * r**1.25
 
     # The model is 3D axisymetric: we require a third component (phi) but don't use it
     medium = AnalyticMedium(
         symbols=[r, theta, phi],
         defs=dict(
-            density=r ** -1 * sp.exp(-(z_expr ** 2 / (2 * H_expr ** 2))),
+            density=r**-1 * sp.exp(-(z_expr**2 / (2 * H_expr**2))),
             velocity_r=-1 / (10 + theta % sp.pi - sp.pi / 2),
             velocity_phi=r ** -sp.Rational(3, 2),
             velocity_theta=0,
