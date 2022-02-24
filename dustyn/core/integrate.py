@@ -59,6 +59,7 @@ class Solver(abc.ABC):
         max_consecutive_strikes: int = 100,
         label: Optional[str] = None,
         logging: bool = False,
+        store_starting_point: bool = True,
     ) -> Record:
 
         if CFL > 1.0:
@@ -113,9 +114,15 @@ class Solver(abc.ABC):
         R = R0.copy()
         t = tstart
 
-        times: list[np.ndarray] = [np.array([tstart])]
-        timesteps: list[np.ndarray] = [np.array([0])]
-        states: list[np.ndarray] = [np.expand_dims(R0, axis=0)]
+        times: list[np.ndarray] = []
+        timesteps: list[np.ndarray] = []
+        states: list[np.ndarray] = []
+
+        if store_starting_point:
+            times.append(np.array([tstart]))
+            timesteps.append(np.array([0]))
+            states.append(np.expand_dims(R0, axis=0))
+
         rec_count = 1
         next_trec = dt_record
         timestep_phy = CFL * model.get_max_timestep(R)
