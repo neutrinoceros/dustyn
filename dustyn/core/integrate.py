@@ -124,7 +124,10 @@ class Solver(abc.ABC):
             states.append(np.expand_dims(R0, axis=0))
 
         rec_count = 1
-        next_trec = dt_record
+        if dt_record is None:
+            next_trec = None
+        else:
+            next_trec = tstart + dt_record
         timestep_phy = CFL * model.get_max_timestep(R)
         it = 0
         strike_count = 0
@@ -159,7 +162,7 @@ class Solver(abc.ABC):
                 buffer_pos += 1
                 rec_count += 1
                 if dt_record is not None:
-                    next_trec = min(dt_record * rec_count, tstop)
+                    next_trec = min(tstart + dt_record * rec_count, tstop)
 
                 if logging:
                     print(
