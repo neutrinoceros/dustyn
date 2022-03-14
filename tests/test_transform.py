@@ -30,7 +30,7 @@ from dustyn.core.transform import spherical2cartesian
 )
 def test_spherical_to_cartesian_transform_coords(coords, expected):
     res = spherical2cartesian(position=coords)
-    np.testing.assert_array_almost_equal(res, expected, decimal=16)
+    np.testing.assert_array_almost_equal(res, expected, decimal=15)
 
     flipped_coords = coords.copy()
     flipped_coords[1] = np.pi - flipped_coords[1]
@@ -38,7 +38,7 @@ def test_spherical_to_cartesian_transform_coords(coords, expected):
 
     flipped_res = res.copy()
     flipped_res[2] *= -1
-    np.testing.assert_array_almost_equal(res2, flipped_res, decimal=16)
+    np.testing.assert_array_almost_equal(res2, flipped_res, decimal=15)
 
 
 @pytest.mark.parametrize(
