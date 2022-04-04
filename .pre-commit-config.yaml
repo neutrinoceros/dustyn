@@ -13,7 +13,7 @@ repos:
       - id: no-commit-to-branch
 
   - repo: https://github.com/asottile/setup-cfg-fmt
-    rev: v1.20.0
+    rev: v1.20.1
     hooks:
       - id: setup-cfg-fmt
 
@@ -29,7 +29,7 @@ repos:
       - id: reorder-python-imports
 
   - repo: https://github.com/psf/black
-    rev: 22.1.0
+    rev: 22.3.0
     hooks:
       - id: black
 
