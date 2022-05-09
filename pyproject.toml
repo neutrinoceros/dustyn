@@ -1,11 +1,5 @@
 [build-system]
 requires = ["setuptools", "wheel"]
 
-[tool.black]
-line-length = 88
-
-[tool.pytest.ini_options]
-addopts = "--mpl"
-
 [tool.mypy]
 python_version = "3.9"
