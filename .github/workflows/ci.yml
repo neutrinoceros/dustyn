@@ -61,14 +61,16 @@ jobs:
       run: |
         python -m pytest --cov=./ --cov-report=xml -vvv --mpl --mpl-generate-summary=html --mpl-results-path=mpl_results tests/test_plotting.py
 
+    - name: Upload pytest-mpl report
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: image_comparison_report
+        path: mpl_results/*
+
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
         file: ./coverage.xml
         flags: unittests
         name: codecov-umbrella
-
-    - uses: actions/upload-artifact@v2
-      with:
-        name: image_comparison_report
-        path: mpl_results/*
